@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 
 export const sidebarRoutes: RouteRecordRaw[] = [
   {
@@ -36,15 +35,7 @@ export const sidebarRoutes: RouteRecordRaw[] = [
 
 const router = createRouter({
   history: createWebHistory(),
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: HomeView,
-      children: [],
-    },
-    ...sidebarRoutes,
-  ],
+  routes: [...sidebarRoutes],
 })
 
 export default router

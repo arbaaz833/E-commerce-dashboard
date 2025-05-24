@@ -17,8 +17,8 @@
             class="block p-2 rounded hover:bg-neutral-700 transition-all text-sm truncate"
             active-class="bg-neutral-700"
           >
-            <i :class="`${route.meta.icon} mr-2`"></i>
-            <span>{{ route.meta.label }}</span>
+            <i :class="`${route.meta!.icon} mr-2`"></i>
+            <span>{{ route.meta!.label }}</span>
           </RouterLink>
         </nav>
       </aside>
