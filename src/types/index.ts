@@ -11,6 +11,7 @@ export type Product = {
 export type Order = {
   orderId: string
   productId: string
+  category: string
   quantity: number
   totalPrice: number
   orderDate: string

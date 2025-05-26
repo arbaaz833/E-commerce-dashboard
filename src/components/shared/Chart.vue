@@ -6,43 +6,18 @@
 import { $dt } from '@primeuix/themes'
 
 interface ChartProps {
-  interval: 'monthly' | 'weekly' | 'daily' | 'yearly'
+  labels: string[]
   title: string
-  data?: number[]
+  data: number[]
 }
 
-const props = withDefaults(defineProps<ChartProps>(), {
-  data: () => [65, 59, 80, 81, 56, 55, 40],
-})
-onMounted(() => {
-  chartData.value = setChartData()
-  chartOptions.value = setChartOptions()
-})
-const lables = {
-  monthly: [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ],
-  weekly: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
-  daily: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-  yearly: ['2020', '2021', '2022', '2023', '2024', '2025'],
-}
+const props = defineProps<ChartProps>()
 const chartData = ref()
 const chartOptions = ref()
 
 const setChartData = () => {
   return {
-    labels: lables[props.interval],
+    labels: props.labels,
     datasets: [
       {
         label: props.title,
@@ -89,4 +64,35 @@ const setChartOptions = () => {
     },
   }
 }
+
+watch(
+  props,
+  () => {
+    chartData.value = setChartData()
+  },
+  { immediate: true },
+)
+onMounted(() => {
+  chartData.value = setChartData()
+  chartOptions.value = setChartOptions()
+})
+// const lables = {
+//   monthly: [
+//     'January',
+//     'February',
+//     'March',
+//     'April',
+//     'May',
+//     'June',
+//     'July',
+//     'August',
+//     'September',
+//     'October',
+//     'November',
+//     'December',
+//   ],
+//   weekly: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+//   daily: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+//   yearly: ['2020', '2021', '2022', '2023', '2024', '2025'],
+// }
 </script>
