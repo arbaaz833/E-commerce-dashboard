@@ -1,5 +1,5 @@
 <template>
-  <PrimeChart type="line" :data="chartData" :options="chartOptions" class="h-[30rem] w-full" />
+  <PrimeChart type="line" :data="chartData" :options="chartOptions" class="h-[25rem] w-full" />
 </template>
 
 <script setup lang="ts">

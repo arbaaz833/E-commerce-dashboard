@@ -1,51 +1,56 @@
 <template>
-  <Heading title="Statistics" class="mb-4">
-    <PrimeSelect
-      v-model="selectedCategory"
-      :options="categories"
-      @change="updateFilteredOrders"
-      placeholder="Select a category"
-      class="min-w-60"
-    />
-  </Heading>
-  <div class="flex items-center justify-start gap-4 pb-4 border-b border-zinc-800">
-    <Card title="Orders">
-      <template #content>
-        <p>Total orders placed: {{ totalOrders }}</p>
-      </template>
-    </Card>
-    <Card title="Revenue">
-      <template #content>
-        <p class="text-gray-700 dark:text-gray-300">Total: {{ totalRevenue }} $</p>
-      </template>
-    </Card>
+  <div v-if="loading" class="flex flex-col gap-4">
+    <PrimeSkeleton v-for="i in 3" :key="i" class="min-h-10 w-full rounded-2xl" />
   </div>
-  <Heading title="Trends" class="mt-4">
-    <PrimeSelect
-      v-model="selectedInterval"
-      :options="[
-        { label: 'Daily', value: 'daily' },
-        { label: 'Weekly', value: 'weekly' },
-        { label: 'Monthly', value: 'monthly' },
-        { label: 'Yearly', value: 'yearly' },
-      ]"
-      placeholder="Select an interval"
-      optionLabel="label"
-      optionValue="value"
-      class="min-w-60"
-    />
-  </Heading>
-  <div class="flex items-center justify-start gap-4 mt-4">
-    <Chart
-      :labels="revenueDataByInterval.labels"
-      title="Orders"
-      :data="revenueDataByInterval.orderCounts"
-    />
-    <Chart
-      :labels="revenueDataByInterval.labels"
-      title="Revenue"
-      :data="revenueDataByInterval.revenues"
-    />
+  <div v-else>
+    <Heading title="Statistics" class="mb-4">
+      <PrimeSelect
+        v-model="selectedCategory"
+        :options="categories"
+        @change="updateFilteredOrders"
+        placeholder="Select a category"
+        class="min-w-60"
+      />
+    </Heading>
+    <div class="flex items-center justify-start gap-4 pb-4 border-b border-zinc-800">
+      <Card title="Orders">
+        <template #content>
+          <p>Total orders placed: {{ totalOrders }}</p>
+        </template>
+      </Card>
+      <Card title="Revenue">
+        <template #content>
+          <p class="text-gray-700 dark:text-gray-300">Total: {{ totalRevenue }} $</p>
+        </template>
+      </Card>
+    </div>
+    <Heading title="Trends" class="mt-4">
+      <PrimeSelect
+        v-model="selectedInterval"
+        :options="[
+          { label: 'Daily', value: 'daily' },
+          { label: 'Weekly', value: 'weekly' },
+          { label: 'Monthly', value: 'monthly' },
+          { label: 'Yearly', value: 'yearly' },
+        ]"
+        placeholder="Select an interval"
+        optionLabel="label"
+        optionValue="value"
+        class="min-w-60"
+      />
+    </Heading>
+    <div class="flex items-center justify-start gap-4 mt-4">
+      <Chart
+        :labels="revenueDataByInterval.labels"
+        title="Orders"
+        :data="revenueDataByInterval.orderCounts"
+      />
+      <Chart
+        :labels="revenueDataByInterval.labels"
+        title="Revenue"
+        :data="revenueDataByInterval.revenues"
+      />
+    </div>
   </div>
 </template>
 
@@ -60,6 +65,7 @@ import { categories } from '@/constants'
 const selectedCategory = ref<string>(categories[0])
 const filteredOrders = ref<Order[]>([])
 const allOrders = ref<Order[]>([])
+const loading = ref<boolean>(false)
 const selectedInterval = ref('monthly')
 
 const totalRevenue = computed(() => {
@@ -72,8 +78,11 @@ const totalOrders = computed(() => {
 
 onMounted(async () => {
   try {
+    loading.value = true
     await fetchOrders()
+    loading.value = false
   } catch (error) {
+    loading.value = false
     console.error('Error fetching orders:', error)
   }
 })
@@ -87,11 +96,10 @@ const fetchOrders = async () => {
 }
 
 const updateFilteredOrders = () => {
-  console.log('selected category', selectedCategory.value)
   const filtered = allOrders.value.filter((order) => {
     return order.category === selectedCategory.value
   })
-  console.log('filtered orders', filtered)
+
   filteredOrders.value = filtered
 }
 
@@ -107,8 +115,6 @@ function getISOWeekAndYear(date: Date) {
 }
 
 const revenueDataByInterval = computed(() => {
-  console.log('computing')
-  console.log('filteredOrders: ', toRaw(filteredOrders.value))
   if (!filteredOrders.value || filteredOrders.value.length === 0) {
     return { labels: [], revenues: [], orderCounts: [] }
   }
@@ -157,7 +163,6 @@ const revenueDataByInterval = computed(() => {
     if (aKey > bKey) return 1
     return 0
   })
-  console.log('sortedEntries: ', sortedEntries)
 
   const labels = []
   const revenues = []

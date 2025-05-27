@@ -11,6 +11,8 @@ const imageUrl = computed(() => {
   const url = props.params!.data.imageUrl
   if (url.includes('images/placeholder')) {
     return '/products.png'
+  } else if (url.includes('uploads/')) {
+    return import.meta.env.VITE_BASE_URL + url.slice(1)
   }
 })
 </script>

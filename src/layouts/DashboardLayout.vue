@@ -3,8 +3,8 @@
     <header
       class="bg-transparent shadow-md h-16 flex items-center justify-between px-6 border-b border-zinc-800"
     >
-      <div class="text-xl font-semibold">My Dashboard</div>
-      <div class="text-sm text-gray-600">Welcome, User</div>
+      <div class="text-xl font-semibold">E-commerce Dashboard</div>
+      <div class="text-sm text-gray-600">Welcome</div>
     </header>
 
     <div class="flex flex-1 overflow-hidden">
@@ -32,10 +32,5 @@
 
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import { onMounted } from 'vue'
 import { sidebarRoutes } from '../router/index.ts'
-
-onMounted(() => {
-  console.log('routes', sidebarRoutes)
-})
 </script>

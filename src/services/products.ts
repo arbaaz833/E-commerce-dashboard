@@ -15,7 +15,7 @@ const getOrders = async (): Promise<Order[]> => {
 
 const createProduct = async (data: Record<string, any>) => {
   const formData = objectToFormData(data)
-  return await axios.post('/products/orders', formData, {
+  return await axios.post('/products/create', formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },

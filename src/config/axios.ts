@@ -1,6 +1,6 @@
 import axiosApi from 'axios'
 const axios = axiosApi.create({
-  baseURL: 'http://localhost:3001',
+  baseURL: import.meta.env.VITE_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },

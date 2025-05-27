@@ -1,49 +1,47 @@
 <template>
-  <Heading title="Products & Inventory" class="mb-4" />
+  <div v-if="loading" class="flex flex-col gap-4">
+    <PrimeSkeleton v-for="i in 3" :key="i" class="min-h-10 w-full rounded-2xl" />
+  </div>
+  <div v-else>
+    <Heading title="Products & Inventory" class="mb-4" />
 
-  <AgGridVue
-    style="width: 100%; height: 500px"
-    class="ag-theme-quartz"
-    :rowData="products"
-    :columnDefs="colDefs"
-    :theme="myTheme"
-    :gridOptions="gridOptions"
-    page-siz
-    :pagination="true"
-    :defaultColDef="defaultColDef"
-    @grid-ready="onGridReady"
-    :paginationPageSize="10"
-    :domLayout="'autoHeight'"
-  ></AgGridVue>
+    <AgGridVue
+      style="width: 100%; height: 500px"
+      class="ag-theme-quartz"
+      :rowData="products"
+      :columnDefs="colDefs"
+      :theme="myTheme"
+      :gridOptions="gridOptions"
+      :pagination="true"
+      :defaultColDef="defaultColDef"
+      @grid-ready="onGridReady"
+      :paginationPageSize="10"
+      :domLayout="'autoHeight'"
+    ></AgGridVue>
 
-  <PrimeDialog
-    v-model:visible="visible"
-    des
-    modal
-    header="Update Stock"
-    :style="{ width: '25rem' }"
-  >
-    <div class="flex items-center gap-4 mb-4">
-      <label for="username" class="font-semibold w-24">New stock</label>
-      <PrimeInputNumber v-model="newStock" :min="0" class="flex-auto" autocomplete="off" />
-    </div>
-    <div class="flex justify-end gap-2">
-      <PrimeButton
-        type="button"
-        label="Cancel"
-        size="small"
-        severity="secondary"
-        @click="visible = false"
-      />
-      <PrimeButton
-        size="small"
-        type="button"
-        label="Update"
-        @click="updateStock"
-        :disabled="newStock <= 0"
-      />
-    </div>
-  </PrimeDialog>
+    <PrimeDialog v-model:visible="visible" modal header="Update Stock" :style="{ width: '25rem' }">
+      <div class="flex items-center gap-4 mb-4">
+        <label for="username" class="font-semibold w-24">New stock</label>
+        <PrimeInputNumber v-model="newStock" :min="0" class="flex-auto" autocomplete="off" />
+      </div>
+      <div class="flex justify-end gap-2">
+        <PrimeButton
+          type="button"
+          label="Cancel"
+          size="small"
+          severity="secondary"
+          @click="visible = false"
+        />
+        <PrimeButton
+          size="small"
+          type="button"
+          label="Update"
+          @click="updateStock"
+          :disabled="newStock <= 0"
+        />
+      </div>
+    </PrimeDialog>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -61,7 +59,7 @@ const toast = useToast()
 const visible = ref<boolean>(false)
 const newStock = ref<number>(0)
 const rowToUpdate = ref<Product | null>(null)
-
+const loading = ref<boolean>(false)
 const products = ref<Product[]>([])
 const gridApi = ref<GridReadyEvent['api']>()
 
@@ -76,13 +74,24 @@ const onGridReady = (params: GridReadyEvent) => {
   gridApi.value = params.api
 }
 
+onMounted(async () => {
+  try {
+    loading.value = true
+    const _products = await productsService.getProducts()
+    products.value = _products
+    loading.value = false
+  } catch (error) {
+    loading.value = false
+    console.error('Error fetching products:', error)
+  }
+})
+
 const gridOptions = {
   getRowId: (params: any) => params.data.id,
   paginationPageSizeSelector: false,
 }
 
 const handleClick = (data: any) => {
-  console.log('data: ', data)
   newStock.value = data.stock
   rowToUpdate.value = data
   visible.value = true
@@ -158,13 +167,4 @@ const defaultColDef = {
   minWidth: 100,
   resizable: true,
 }
-onMounted(async () => {
-  try {
-    const _products = await productsService.getProducts()
-    products.value = _products
-    console.log('Products fetched:', _products)
-  } catch (error) {
-    console.error('Error fetching products:', error)
-  }
-})
 </script>
