@@ -2,16 +2,6 @@ import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 
 export const sidebarRoutes: RouteRecordRaw[] = [
   {
-    name: 'home',
-    path: '/',
-    component: () => import('../views/home.vue'),
-    meta: {
-      layout: 'authLayput',
-      icon: 'pi pi-chart-line',
-      label: 'Revenue',
-    },
-  },
-  {
     name: 'revenue',
     path: '/revenue',
     component: () => import('../views/Revenue.vue'),
@@ -45,7 +35,19 @@ export const sidebarRoutes: RouteRecordRaw[] = [
 
 const router = createRouter({
   history: createWebHistory(),
-  routes: [...sidebarRoutes],
+  routes: [
+    {
+      name: 'home',
+      path: '/',
+      component: () => import('../views/home.vue'),
+      meta: {
+        layout: 'authLayput',
+        icon: 'pi pi-chart-line',
+        label: 'Revenue',
+      },
+    },
+    ...sidebarRoutes,
+  ],
 })
 
 export default router
