@@ -55,20 +55,7 @@ import Chart from '@/components/shared/Chart.vue'
 import Heading from '../components/shared/Heading.vue'
 import { productsService } from '@/services/products'
 import type { Order } from '@/types'
-
-const categories = [
-  'Electronics',
-  'Home & Kitchen',
-  'Books',
-  'Sports & Outdoors',
-  'Accessories',
-  'Office Supplies',
-  'Beauty & Personal Care',
-  'Toys & Games',
-  'Automotive',
-  'Groceries',
-  'Health',
-]
+import { categories } from '@/constants'
 
 const selectedCategory = ref<string>(categories[0])
 const filteredOrders = ref<Order[]>([])
@@ -182,7 +169,6 @@ const revenueDataByInterval = computed(() => {
     orderCounts.push(value.orderCount)
   }
 
-  console.log('REEEE', { labels, revenues, orderCounts })
   return { labels, revenues, orderCounts }
 })
 </script>

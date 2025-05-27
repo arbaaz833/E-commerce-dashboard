@@ -1001,6 +1001,25 @@ acorn@^8.14.0, acorn@^8.14.1:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.14.1.tgz#721d5dc10f7d5b5609a891773d47731796935dfb"
   integrity sha512-OvQ/2pUDKmgfCg++xsTX1wGxfTaszcHVcTctW4UJB4hibJx2HXxxO5UmVgyjMa+ZDsiaf5wWLXYpRWMmBI0QHg==
 
+ag-charts-types@11.3.0:
+  version "11.3.0"
+  resolved "https://registry.yarnpkg.com/ag-charts-types/-/ag-charts-types-11.3.0.tgz#5f57fd56f0a230e751daa75f28528791b675f29f"
+  integrity sha512-FXyk24PizYS4QoPTk7FVaFDgvmZYBQo6sgl5n3lkHugTNTZBtwBmN3i4JnBXgNjGDB6Q05MRkoBA2rvW8rPBag==
+
+ag-grid-community@33.3.0, ag-grid-community@^33.3.0:
+  version "33.3.0"
+  resolved "https://registry.yarnpkg.com/ag-grid-community/-/ag-grid-community-33.3.0.tgz#a55c80b8108ad185a31420ec61be939e1ab83c12"
+  integrity sha512-Nr7Wd3Qc0tbR+BWZ4y8LgEwLkHTvrtJ4f4k5eb4zuoNZFM52MyLfu+m4OAplIm9nOVBdp5tg/ALWvu13jak+Nw==
+  dependencies:
+    ag-charts-types "11.3.0"
+
+ag-grid-vue3@^33.3.0:
+  version "33.3.0"
+  resolved "https://registry.yarnpkg.com/ag-grid-vue3/-/ag-grid-vue3-33.3.0.tgz#dec24d970ac754f7a18c5093a6938c964a31902a"
+  integrity sha512-ColkObZweq38p5q5oUaL7ImSc1RxgJsONIyK2M/PHFr/jSj970gMq1NyQ3AzPKNaWDXq+BX6iZ+NDOTIAqmURw==
+  dependencies:
+    ag-grid-community "33.3.0"
+
 alien-signals@^1.0.3:
   version "1.0.13"
   resolved "https://registry.npmjs.org/alien-signals/-/alien-signals-1.0.13.tgz"

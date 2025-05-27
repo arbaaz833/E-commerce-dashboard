@@ -1,24 +1,13 @@
-export const monthNames = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-]
-
-export const dayNames = [
-  'Sunday',
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday',
+export const categories = [
+  'Electronics',
+  'Home & Kitchen',
+  'Books',
+  'Sports & Outdoors',
+  'Accessories',
+  'Office Supplies',
+  'Beauty & Personal Care',
+  'Toys & Games',
+  'Automotive',
+  'Groceries',
+  'Health',
 ]

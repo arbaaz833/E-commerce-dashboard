@@ -20,8 +20,15 @@ declare module 'vue' {
     PrimeButton: typeof import('primevue/button')['default']
     PrimeCard: typeof import('primevue/card')['default']
     PrimeChart: typeof import('primevue/chart')['default']
+    PrimeDialog: typeof import('primevue/dialog')['default']
+    PrimeImage: typeof import('primevue/image')['default']
+    PrimeInputNumber: typeof import('primevue/inputnumber')['default']
+    PrimeInputText: typeof import('primevue/inputtext')['default']
     PrimeSelect: typeof import('primevue/select')['default']
+    PrimeToast: typeof import('primevue/toast')['default']
+    ProductImage: typeof import('./src/components/productImage/ProductImage.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    UpdateStock: typeof import('./src/components/updateStock/updateStock.vue')['default']
   }
 }

@@ -22,8 +22,8 @@ const createProduct = async (data: Record<string, any>) => {
   })
 }
 
-const updateProduct = async (data: Record<string, any>) => {
-  const res = await axios.patch('/products/update', data)
+const updateProduct = async ({ id, newStock }: Record<string, any>) => {
+  const res = await axios.patch(`/products/update/${id}`, { newStock })
   return res.data
 }
 
