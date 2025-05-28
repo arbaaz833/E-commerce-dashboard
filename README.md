@@ -1,33 +1,54 @@
-# E-commerce dashboard
+# 🚀 Vue App
 
-This template should help get you started developing with Vue 3 in Vite.
+This is a Vue 3 project powered by Vite.
 
-## Recommended IDE Setup
+## 📦 Project Setup
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+Make sure you have [Node.js](https://nodejs.org/) and [Yarn](https://classic.yarnpkg.com/en/docs/install/) installed.
 
-## Type Support for `.vue` Imports in TS
+### 1. Clone the Repository
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+```bash
+git clone https://github.com/arbaaz833/E-commerce-dashboard.git
+cd E-commerce-dashboard
+```
 
-## Customize configuration
+### 2. Install Dependencies
 
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
+```bash
 yarn
 ```
 
-### Compile and Hot-Reload for Development
+### 3. Create .env File
 
-```sh
-yarn dev
+Create .env file:
+In the root directory of your project, create a new file named .env.
+
+Add VITE_BASE_URL:
+Inside the .env file, add the following line
+
+```bash
+VITE_BASE_URL=https://node-app-e-commerce.onrender.com/
 ```
 
-### Type-Check, Compile and Minify for Production
+### 4. Run the Development Server
 
-```sh
+```bash
 yarn build
 ```
+
+### 📝 Notes
+
+Uses Vue 3 + Prime vue + Tailwind Css + vite
+
+Handles routing via Vue Router
+
+Fully typed
+
+API base URL is configured via VITE_BASE_URL in .env
+
+All dependencies are managed with Yarn
+
+## visit live version here
+
+Url: https://e-commerce-dashboard-one-xi.vercel.app/
