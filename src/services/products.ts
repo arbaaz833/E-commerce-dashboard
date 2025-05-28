@@ -9,7 +9,6 @@ const getProducts = async () => {
 
 const getOrders = async (): Promise<Order[]> => {
   const res = await axios.get('/products/orders')
-  console.log('res: ', res)
   return res.data
 }
 

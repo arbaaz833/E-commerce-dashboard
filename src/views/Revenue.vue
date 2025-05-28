@@ -65,6 +65,7 @@ import { categories } from '@/constants'
 const selectedCategory = ref<string>(categories[0])
 const filteredOrders = ref<Order[]>([])
 const allOrders = ref<Order[]>([])
+const intervalId = ref<number | null>(null)
 const loading = ref<boolean>(false)
 const selectedInterval = ref('monthly')
 
@@ -81,9 +82,19 @@ onMounted(async () => {
     loading.value = true
     await fetchOrders()
     loading.value = false
+    intervalId.value = setInterval(async () => {
+      await fetchOrders()
+    }, 60000)
   } catch (error) {
     loading.value = false
     console.error('Error fetching orders:', error)
+  }
+})
+
+onBeforeUnmount(() => {
+  if (intervalId.value) {
+    console.log('Clearing interval:', intervalId.value)
+    clearInterval(intervalId.value)
   }
 })
 
